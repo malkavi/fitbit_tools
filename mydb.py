@@ -1,18 +1,19 @@
 #!/usr/bin/env python
 
-# wrapper to MySQL library, hiding most of the complexity.
+# wrapper to SQLite library, hiding most of the complexity.
 
 # needs a little work, especially to remove the hardcoded "myyaml"
 # file location
 
 import sys
 import yaml
-import MySQLdb as db
+import sqlite3 as db
 
 class Database:
     config = ''
     def __init__( self , client="default" ):
-        myyaml = '/home/jacoby/.my.yaml'
+    	client="fitbit"
+        myyaml = '../.my.yaml'
         c = open( myyaml , 'r' )
         c_yaml = c.read()
         c_obj = yaml.load(c_yaml)
@@ -21,8 +22,7 @@ class Database:
         self.database = clients[client]["database"]
         self.password = clients[client]["password"]
         self.host = clients[client]["host"]
-        self.con = db.connect(self.host, self.user,
-                              self.password, self.database)
+        self.con = db.connect(self.database)
 
     def db_do( self , query='' , values=[] ):
         if ( len(query) > 0 ):

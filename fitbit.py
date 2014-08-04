@@ -140,7 +140,7 @@ class FitBit:
         j_data= resp.read()
         return json.loads( j_data )
 
-def make_class( conf = '/home/jacoby/.fitbit.cnf' ):
+def make_class( conf = '../.fitbit.cnf' ):
     config = os.path.abspath( conf )
     c = open( conf , 'r' )
     c_yaml = c.read()
