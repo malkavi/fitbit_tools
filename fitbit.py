@@ -83,15 +83,18 @@ class FitBit:
             date = now.strftime("%Y-%m-%d")
         apiCall = '/1/user/-/activities/date/' + date + '.json'
         return self.__make_api_call_json( apiCall )
+    def log_body_weight_lb( self, weight='0'):
+        metric = int( weight ) * 0.453592
+        return log_body_weight( metric )
     def log_body_weight( self, weight='0'):
         apiCall = '/1/user/-/body/log/weight.json'
         weight = str(weight)
         if re.match( '\D' , weight ):
             return 0
         else:
-            if int(weight) < 160 :
+            if int(weight) < 60 :
                 return 0
-            metric = int( weight ) * 0.453592
+            metric = int( weight )
             now = datetime.datetime.now()
             data = {}
             data['weight'] = metric
